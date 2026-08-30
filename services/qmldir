@@ -1,0 +1,6 @@
+singleton ConfigManager 1.0 ConfigManager.qml
+singleton WallpaperManager 1.0 WallpaperManager.qml
+singleton AnimationManager 1.0 AnimationManager.qml
+Actions 1.0 Actions.qml
+GlobalShortcuts 1.0 GlobalShortcuts.qml
+WorkspaceModel 1.0 WorkspaceModel.qml

@@ -1,0 +1,28 @@
+{
+    "name": "Catppuccin Frappe",
+    "flavor": "frappe",
+
+    "colors": {
+        "background": "#303446",
+        "surface": "#292c3c",
+        "surfaceVariant": "#414559",
+
+        "text": "#c6d0f5",
+        "textSecondary": "#b5bfe2",
+
+        "accent": "#ca9ee6",
+        "accentText": "#303446",
+        "border": "#51576d",
+
+        "red": "#e78284",
+        "green": "#a6d189",
+        "yellow": "#e5c890",
+        "blue": "#8caaee",
+        "purple": "#ca9ee6",
+        "cyan": "#81c8be",
+
+        "overlay": "#737994",
+        "selection": "#51576d",
+        "shadow": "#232634"
+    }
+}

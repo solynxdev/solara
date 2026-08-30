@@ -1,0 +1,28 @@
+{
+    "name": "Catppuccin Macchiato",
+    "flavor": "macchiato",
+
+    "colors": {
+        "background": "#24273a",
+        "surface": "#1e2030",
+        "surfaceVariant": "#363a4f",
+
+        "text": "#cad3f5",
+        "textSecondary": "#b8c0e0",
+
+        "accent": "#c6a0f6",
+        "accentText": "#24273a",
+        "border": "#494d64",
+
+        "red": "#ed8796",
+        "green": "#a6da95",
+        "yellow": "#eed49f",
+        "blue": "#8aadf4",
+        "purple": "#c6a0f6",
+        "cyan": "#8bd5ca",
+
+        "overlay": "#6e738d",
+        "selection": "#494d64",
+        "shadow": "#181926"
+    }
+}

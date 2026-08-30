@@ -1,0 +1,28 @@
+{
+    "name": "Catppuccin Mocha",
+    "flavor": "mocha",
+
+    "colors": {
+        "background": "#1e1e2e",
+        "surface": "#181825",
+        "surfaceVariant": "#313244",
+
+        "text": "#cdd6f4",
+        "textSecondary": "#bac2de",
+
+        "accent": "#cba6f7",
+        "accentText": "#1e1e2e",
+        "border": "#45475a",
+
+        "red": "#f38ba8",
+        "green": "#a6e3a1",
+        "yellow": "#f9e2af",
+        "blue": "#89b4fa",
+        "purple": "#cba6f7",
+        "cyan": "#94e2d5",
+
+        "overlay": "#6c7086",
+        "selection": "#45475a",
+        "shadow": "#11111b"
+    }
+}

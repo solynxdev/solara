@@ -1,0 +1,46 @@
+{
+    "useDefaultConfig": true,
+    "scheme": "catppuccin/latte",
+    "wallpaper": "/home/solynx/Pictures/Wallpapers/flower-field-2.png",
+    "notch": {
+        "contentPaddingY": 5,
+        "cornerSize": 24,
+        "contentPaddingX": 16,
+        "hoverExpand": true
+    },
+    "animations": {
+        "notch": {
+            "duration": 250
+        },
+        "speed": 1,
+        "enabled": false,
+        "wallpaper": {
+            "enabled": false
+        }
+    },
+    "wallpaperTransition": {
+        "duration": 500
+    },
+    "appearance": {
+        "transparency": 0.7,
+        "scale": 1,
+        "uiScale": 1.05
+    },
+    "workspaces": {
+        "maximum": 5,
+        "showEmpty": false
+    },
+    "launcher": {
+        "maxResults": 8,
+        "fuzzy": true
+    },
+    "bar": {
+        "enabled": true
+    },
+    "integrations": {
+        "hyprland": false,
+        "kitty": false,
+        "cava": false,
+        "btop": false
+    }
+}

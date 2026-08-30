@@ -1,0 +1,28 @@
+{
+    "name": "Catppuccin Latte",
+    "flavor": "latte",
+
+    "colors": {
+        "background": "#eff1f5",
+        "surface": "#e6e9ef",
+        "surfaceVariant": "#ccd0da",
+
+        "text": "#4c4f69",
+        "textSecondary": "#5c5f77",
+
+        "accent": "#8839ef",
+        "accentText": "#eff1f5",
+        "border": "#bcc0cc",
+
+        "red": "#d20f39",
+        "green": "#40a02b",
+        "yellow": "#df8e1d",
+        "blue": "#1e66f5",
+        "purple": "#8839ef",
+        "cyan": "#179299",
+
+        "overlay": "#6c6f85",
+        "selection": "#bcc0cc",
+        "shadow": "#dce0e8"
+    }
+}

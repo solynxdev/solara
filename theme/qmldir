@@ -1,0 +1,2 @@
+singleton ThemeManager 1.0 ThemeManager.qml
+singleton Theme 1.0 Theme.qml

@@ -1,0 +1,68 @@
+{
+    "scheme": "catppuccin/mocha",
+
+    "wallpaper": {
+        "current": "",
+        "random": false,
+        "video": false
+    },
+
+    "animations": {
+        "enabled": true,
+
+        "notch": {
+            "duration": 250,
+            "easing": "OutCubic"
+        },
+
+        "surface": {
+            "duration": 200,
+            "easing": "OutCubic"
+        },
+
+        "wallpaper": {
+            "enabled": true,
+            "duration": 500,
+            "easing": "InOutCubic"
+        },
+
+        "scheme": {
+            "enabled": true,
+            "duration": 300,
+            "easing": "OutCubic"
+        }
+    },
+
+    "notch": {
+        "cornerSize": 24,
+        "contentPaddingX": 20,
+        "contentPaddingY": 5
+    },
+
+    "bar": {
+        "enabled": true
+    },
+
+    "workspaces": {
+        "count": 5,
+        "showEmpty": false
+    },
+
+    "appearance": {
+        "uiScale": 1.0
+    },
+
+    "integrations": {
+        "hyprland": true,
+        "kitty": true,
+        "fish": true,
+        "cava": true,
+        "btop": true
+    },
+
+    "system": {
+        "wifi": true,
+        "bluetooth": true,
+        "audio": true
+    }
+}
