@@ -8,7 +8,11 @@ Item {
 
     required property var screen
 
-    property int workspacesPerPage: 5
+    property int workspacesPerPage:
+        ConfigManager.get("workspaces.count", 5)
+
+    property bool showEmpty:
+        ConfigManager.get("workspaces.showEmpty", false)
 
     WorkspaceModel {
         id: workspaceModel
@@ -40,6 +44,7 @@ Item {
                     return false;
 
                 return workspace.active ||
+                        root.showEmpty ||
                         workspace.toplevels.values.length > 0;
             });
         }

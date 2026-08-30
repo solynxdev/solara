@@ -5,8 +5,13 @@ import QtQuick
 QtObject {
     id: root
 
+    readonly property string fontFamily: "Sans"
+
     readonly property color background:
         ThemeManager.color("background", "#1e1e2e")
+
+    readonly property color chrome:
+        ThemeManager.color("chrome", "#11111b")
 
     readonly property color surface:
         ThemeManager.color("surface", "#181825")

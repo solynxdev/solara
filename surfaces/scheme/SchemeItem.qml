@@ -1,6 +1,8 @@
 import QtQuick
 import Quickshell
 
+import "../../theme"
+
 Item {
     id: root
 
@@ -18,8 +20,8 @@ Item {
         radius: 14
 
         color: mouse.containsMouse
-            ? Qt.rgba(1, 1, 1, 0.10)
-            : Qt.rgba(1, 1, 1, 0.05)
+            ? Qt.rgba(Theme.text.r, Theme.text.g, Theme.text.b, 0.10)
+            : Qt.rgba(Theme.text.r, Theme.text.g, Theme.text.b, 0.05)
 
         Behavior on color {
             ColorAnimation {
@@ -71,7 +73,7 @@ Item {
             Text {
                 text: root.scheme.name
 
-                color: "white"
+                color: Theme.text
 
                 font.pixelSize: 15
                 font.weight: Font.Medium
@@ -80,7 +82,7 @@ Item {
             Text {
                 text: root.scheme.description
 
-                color: Qt.rgba(1, 1, 1, 0.55)
+                color: Theme.textSecondary
 
                 font.pixelSize: 12
 

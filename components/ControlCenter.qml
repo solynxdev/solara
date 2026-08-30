@@ -5,16 +5,12 @@ import Quickshell.Bluetooth
 import Quickshell.Networking
 import Quickshell.Services.SystemTray
 
+import "../theme"
+
 Item {
     id: root
 
     property bool trayExpanded: false
-
-    readonly property var wifiDevice: {
-        return Networking.devices.values.find(
-            device => device.type === DeviceType.Wifi
-        ) ?? null
-    }
 
     readonly property var bluetoothAdapter:
         Bluetooth.defaultAdapter
@@ -90,7 +86,7 @@ Item {
 
                 text: root.trayExpanded ? "‹" : "⋯"
 
-                color: "white"
+                color: Theme.text
                 font.pixelSize: 18
                 font.weight: Font.Bold
             }

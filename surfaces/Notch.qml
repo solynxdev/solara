@@ -11,8 +11,6 @@ import "../components"
 PanelWindow {
     id: root
 
-    signal settingsRequested()
-
     property string mode: "collapsed"
     property string displayedMode: "collapsed"
 
@@ -27,6 +25,7 @@ PanelWindow {
     readonly property bool launcherOpen: root.mode === "launcher"
     readonly property bool wallpaperOpen: root.mode === "wallpaper"
     readonly property bool schemeOpen: root.mode === "scheme"
+    readonly property bool settingsOpen: root.mode === "settings"
 
     property real cornerSize:
         ConfigManager.get("notch.cornerSize", 24)
@@ -49,6 +48,8 @@ PanelWindow {
             return wallpaperContent
         case "scheme":
             return schemeContent
+        case "settings":
+            return settingsContent
         default:
             return collapsedContent
         }
@@ -65,7 +66,8 @@ PanelWindow {
 
     screen: root.screen
 
-    focusable: mode === "launcher"
+    focusable: root.mode === "launcher"
+        || root.mode === "settings"
 
     exclusionMode: ExclusionMode.Ignore
 
@@ -81,6 +83,7 @@ PanelWindow {
         active: root.mode === "launcher"
             || root.mode === "wallpaper"
             || root.mode === "scheme"
+            || root.mode === "settings"
     }
 
     NotchShape {
@@ -185,8 +188,7 @@ PanelWindow {
                 } else if (command === "scheme") {
                     root.mode = "scheme"
                 } else if (command === "settings") {
-                    root.mode = "collapsed"
-                    root.settingsRequested()
+                    root.mode = "settings"
                 }
             }
         }
@@ -205,6 +207,16 @@ PanelWindow {
             id: schemeContent
 
             visible: root.displayedMode === "scheme"
+
+            onClosed: {
+                root.mode = "collapsed"
+            }
+        }
+
+        Settings {
+            id: settingsContent
+
+            visible: root.displayedMode === "settings"
 
             onClosed: {
                 root.mode = "collapsed"
@@ -255,7 +267,8 @@ PanelWindow {
             "expanded": expandedContent,
             "launcher": launcherContent,
             "wallpaper": wallpaperContent,
-            "scheme": schemeContent
+            "scheme": schemeContent,
+            "settings": settingsContent
         }[root.mode]
 
         if (!target)

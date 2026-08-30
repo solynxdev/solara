@@ -2,6 +2,8 @@ import QtQuick
 import Quickshell
 import Quickshell.Wayland
 
+import "../../theme"
+
 PanelWindow {
     id: root
 
@@ -22,7 +24,7 @@ PanelWindow {
 
     WlrLayershell.layer: WlrLayer.Bottom
 
-    color: "black"
+    color: Theme.background
 
     Image {
         anchors.fill: parent

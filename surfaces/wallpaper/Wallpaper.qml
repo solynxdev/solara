@@ -5,6 +5,7 @@ import Quickshell
 
 import "../wallpaper"
 import "../../services"
+import "../../theme"
 
 Item {
     id: root
@@ -13,12 +14,6 @@ Item {
     property int selectedIndex: 0
 
     signal closed()
-    signal wallpaperSelected(string path)
-
-    onWallpaperSelected: path => {
-        WallpaperManager.setWallpaper(path)
-        root.closed()
-    }
 
     implicitWidth: 700
     implicitHeight: 500
@@ -42,7 +37,7 @@ Item {
         anchors.fill: parent
 
         radius: 24
-        color: "black"
+        color: Theme.surface
     }
 
     Column {
@@ -59,10 +54,20 @@ Item {
 
             radius: 14
 
-            color: Qt.rgba(1, 1, 1, 0.08)
+            color: Qt.rgba(
+                Theme.text.r,
+                Theme.text.g,
+                Theme.text.b,
+                0.08
+            )
 
             border.width: 1
-            border.color: Qt.rgba(1, 1, 1, 0.10)
+            border.color: Qt.rgba(
+                Theme.text.r,
+                Theme.text.g,
+                Theme.text.b,
+                0.10
+            )
 
             TextInput {
                 id: search
@@ -75,8 +80,13 @@ Item {
 
                 focus: true
 
-                color: "white"
-                selectionColor: Qt.rgba(1, 1, 1, 0.2)
+                color: Theme.text
+                selectionColor: Qt.rgba(
+                    Theme.text.r,
+                    Theme.text.g,
+                    Theme.text.b,
+                    0.2
+                )
 
                 font.family: "JetBrains Mono"
                 font.pixelSize: 16
@@ -101,7 +111,7 @@ Item {
                 }
 
                 text: "Search wallpapers..."
-                color: Qt.rgba(1, 1, 1, 0.35)
+                color: Theme.textSecondary
 
                 font.family: "JetBrains Mono"
                 font.pixelSize: 16
@@ -114,7 +124,12 @@ Item {
             width: parent.width
             height: 1
 
-            color: Qt.rgba(1, 1, 1, 0.15)
+            color: Qt.rgba(
+                Theme.text.r,
+                Theme.text.g,
+                Theme.text.b,
+                0.15
+            )
         }
 
         ListView {
@@ -143,6 +158,11 @@ Item {
                     WallpaperManager.setWallpaper(modelData.path)
                     root.closed()
                 }
+
+                onTriggered: path => {
+                    WallpaperManager.setWallpaper(path)
+                    root.closed()
+                }
             }
         }
     }
@@ -165,10 +185,10 @@ Item {
 
         case Qt.Key_Return:
         case Qt.Key_Enter:
-	        if (results.currentItem)
-	            results.currentItem.triggered(
-	                results.currentItem.wallpaper.path
-	            )
+            if (results.currentItem)
+                results.currentItem.triggered(
+                    results.currentItem.wallpaper.path
+                )
 
             event.accepted = true
             break

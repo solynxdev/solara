@@ -4,6 +4,7 @@ import QtQuick
 import Quickshell
 
 import "../launcher"
+import "../../theme"
 
 Item {
     id: root
@@ -76,7 +77,7 @@ Item {
         anchors.fill: parent
 
         radius: 24
-        color: "black"
+        color: Theme.surface
     }
 
     Column {
@@ -95,11 +96,21 @@ Item {
 
             radius: 14
 
-            color: Qt.rgba(1, 1, 1, 0.08)
+            color: Qt.rgba(
+                Theme.text.r,
+                Theme.text.g,
+                Theme.text.b,
+                0.08
+            )
 
             border {
                 width: 1
-                color: Qt.rgba(1, 1, 1, 0.12)
+                color: Qt.rgba(
+                    Theme.text.r,
+                    Theme.text.g,
+                    Theme.text.b,
+                    0.12
+                )
             }
 
             Text {
@@ -113,7 +124,7 @@ Item {
                     ? "> "
                     : "Search applications..."
 
-                color: Qt.rgba(1, 1, 1, 0.45)
+                color: Theme.textSecondary
 
                 font.family: "JetBrains Mono"
                 font.pixelSize: 14
@@ -130,8 +141,13 @@ Item {
                     rightMargin: 14
                 }
 
-                color: "white"
-                selectionColor: Qt.rgba(1, 1, 1, 0.2)
+                color: Theme.text
+                selectionColor: Qt.rgba(
+                    Theme.text.r,
+                    Theme.text.g,
+                    Theme.text.b,
+                    0.2
+                )
 
                 font.family: "JetBrains Mono"
                 font.pixelSize: 18
@@ -184,7 +200,12 @@ Item {
             width: parent.width
             height: 1
 
-            color: Qt.rgba(1, 1, 1, 0.15)
+            color: Qt.rgba(
+                Theme.text.r,
+                Theme.text.g,
+                Theme.text.b,
+                0.15
+            )
         }
 
         ListView {

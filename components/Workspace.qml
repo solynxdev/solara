@@ -1,6 +1,8 @@
 import QtQuick
 import Quickshell
 
+import "../theme"
+
 Item {
     id: root
 
@@ -18,8 +20,8 @@ Item {
         radius: height / 2
 
         color: root.active
-            ? Qt.rgba(1, 1, 1, 0.20)
-            : Qt.rgba(1, 1, 1, 0.15)
+            ? Qt.rgba(Theme.text.r, Theme.text.g, Theme.text.b, 0.20)
+            : Qt.rgba(Theme.text.r, Theme.text.g, Theme.text.b, 0.15)
     }
 
     Row {
@@ -36,8 +38,8 @@ Item {
             radius: width / 2
 
             color: root.active
-                ? "white"
-                : Qt.rgba(1, 1, 1, 0.25)
+                ? Theme.text
+                : Qt.rgba(Theme.text.r, Theme.text.g, Theme.text.b, 0.25)
 
             Text {
                 anchors.centerIn: parent
@@ -45,8 +47,8 @@ Item {
                 text: root.workspaceIndex
 
                 color: root.active
-                    ? "black"
-                    : Qt.rgba(1, 1, 1, 0.75)
+                    ? Theme.background
+                    : Theme.textSecondary
 
                 font.pixelSize: 11
                 font.weight: Font.Bold

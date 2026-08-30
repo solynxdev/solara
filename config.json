@@ -5,34 +5,23 @@
     "notch": {
         "contentPaddingY": 5,
         "cornerSize": 24,
-        "contentPaddingX": 16,
-        "hoverExpand": true
+        "contentPaddingX": 16
     },
     "animations": {
         "notch": {
             "duration": 250
         },
-        "speed": 1,
         "enabled": false,
         "wallpaper": {
             "enabled": false
         }
     },
-    "wallpaperTransition": {
-        "duration": 500
-    },
     "appearance": {
-        "transparency": 0.7,
-        "scale": 1,
         "uiScale": 1.05
     },
     "workspaces": {
-        "maximum": 5,
+        "count": 5,
         "showEmpty": false
-    },
-    "launcher": {
-        "maxResults": 8,
-        "fuzzy": true
     },
     "bar": {
         "enabled": true

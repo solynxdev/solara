@@ -1,6 +1,7 @@
 import QtQuick
 
 import "../../components"
+import "../../theme"
 
 Item {
     id: root
@@ -23,7 +24,7 @@ Item {
         spacing: 16
 
         Clock {
-            color: "white"
+            color: Theme.text
             font.family: "JetBrains Mono"
             font.pixelSize: 16
             font.weight: Font.Bold

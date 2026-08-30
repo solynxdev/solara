@@ -1,13 +1,15 @@
 import QtQuick
 import Quickshell
 
+import "../theme"
+
 Text {
     id: clock
 
     property string timeFormat: "hh:mm:ss"
 
-    color: "white"
-    font.family: "Sans"
+    color: Theme.text
+    font.family: Theme.fontFamily
     font.pixelSize: 16
     font.weight: Font.Normal
 

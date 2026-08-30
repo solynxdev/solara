@@ -80,6 +80,8 @@ ShellRoot {
 
                     screen: root.modelData
 
+                    visible: ConfigManager.get("bar.enabled", true)
+
                     anchors {
                         left: true
                     }
@@ -103,6 +105,8 @@ ShellRoot {
 
                     screen: root.modelData
 
+                    visible: ConfigManager.get("bar.enabled", true)
+
                     anchors {
                         right: true
                     }
@@ -123,10 +127,6 @@ ShellRoot {
                     id: notch
 
                     screen: root.modelData
-
-                    onSettingsRequested: {
-                        settings.open()
-                    }
                 }
             }
 

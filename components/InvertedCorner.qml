@@ -1,10 +1,14 @@
 import QtQuick
 import QtQuick.Shapes
 
+import "../theme"
+
 Item {
     id: root
 
     property real size: 12
+
+    property color color: Theme.chrome
 
     width: size
     height: size
@@ -15,7 +19,7 @@ Item {
         preferredRendererType: Shape.CurveRenderer
 
         ShapePath {
-            fillColor: "black"
+            fillColor: root.color
             strokeWidth: 0
 
             PathMove {

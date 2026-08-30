@@ -4,7 +4,7 @@ import QtQuick
 import Quickshell
 
 import "../../services"
-import "../../scheme"
+import "../../theme"
 
 
 Item {
@@ -97,7 +97,7 @@ Item {
         anchors.fill: parent
 
         radius: 24
-        color: "black"
+        color: Theme.surface
     }
 
     Column {
@@ -114,10 +114,20 @@ Item {
 
             radius: 14
 
-            color: Qt.rgba(1, 1, 1, 0.08)
+            color: Qt.rgba(
+                Theme.text.r,
+                Theme.text.g,
+                Theme.text.b,
+                0.08
+            )
 
             border.width: 1
-            border.color: Qt.rgba(1, 1, 1, 0.10)
+            border.color: Qt.rgba(
+                Theme.text.r,
+                Theme.text.g,
+                Theme.text.b,
+                0.10
+            )
 
             TextInput {
                 id: search
@@ -130,8 +140,13 @@ Item {
 
                 focus: true
 
-                color: "white"
-                selectionColor: Qt.rgba(1, 1, 1, 0.2)
+                color: Theme.text
+                selectionColor: Qt.rgba(
+                    Theme.text.r,
+                    Theme.text.g,
+                    Theme.text.b,
+                    0.2
+                )
 
                 font.family: "JetBrains Mono"
                 font.pixelSize: 16
@@ -156,7 +171,7 @@ Item {
                 }
 
                 text: "Search schemes..."
-                color: Qt.rgba(1, 1, 1, 0.35)
+                color: Theme.textSecondary
 
                 font.family: "JetBrains Mono"
                 font.pixelSize: 16
@@ -169,7 +184,12 @@ Item {
             width: parent.width
             height: 1
 
-            color: Qt.rgba(1, 1, 1, 0.15)
+            color: Qt.rgba(
+                Theme.text.r,
+                Theme.text.g,
+                Theme.text.b,
+                0.15
+            )
         }
 
         ListView {
@@ -193,7 +213,7 @@ Item {
                 scheme: modelData
 
                 onSelected: id => {
-                    SchemeManager.setScheme(id)
+                    ThemeManager.setScheme(id)
                     root.closed()
                 }
             }

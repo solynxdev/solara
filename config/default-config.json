@@ -1,11 +1,7 @@
 {
     "scheme": "catppuccin/mocha",
 
-    "wallpaper": {
-        "current": "",
-        "random": false,
-        "video": false
-    },
+    "wallpaper": "",
 
     "animations": {
         "enabled": true,

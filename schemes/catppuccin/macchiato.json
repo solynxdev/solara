@@ -4,6 +4,7 @@
 
     "colors": {
         "background": "#24273a",
+        "chrome": "#1e2030",
         "surface": "#1e2030",
         "surfaceVariant": "#363a4f",
 
