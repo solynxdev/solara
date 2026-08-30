@@ -203,4 +203,9 @@ Item {
     Component.onCompleted: {
         search.forceActiveFocus()
     }
+
+    onEnabledChanged: {
+        if (enabled)
+            Qt.callLater(() => search.forceActiveFocus())
+    }
 }

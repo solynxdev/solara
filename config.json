@@ -1,17 +1,18 @@
 {
     "useDefaultConfig": true,
-    "scheme": "catppuccin/latte",
+    "scheme": "dynamic",
     "wallpaper": "/home/solynx/Pictures/Wallpapers/flower-field-2.png",
     "notch": {
         "contentPaddingY": 5,
         "cornerSize": 24,
-        "contentPaddingX": 16
+        "contentPaddingX": 16,
+        "style": "monitor"
     },
     "animations": {
         "notch": {
             "duration": 250
         },
-        "enabled": false,
+        "enabled": true,
         "wallpaper": {
             "enabled": false
         }
@@ -25,6 +26,10 @@
     },
     "bar": {
         "enabled": true
+    },
+    "launcher": {
+        "maxResults": 15,
+        "fuzzy": true
     },
     "integrations": {
         "hyprland": false,

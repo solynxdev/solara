@@ -32,7 +32,8 @@
     "notch": {
         "cornerSize": 24,
         "contentPaddingX": 20,
-        "contentPaddingY": 5
+        "contentPaddingY": 5,
+        "style": "chrome"
     },
 
     "bar": {
@@ -42,6 +43,11 @@
     "workspaces": {
         "count": 5,
         "showEmpty": false
+    },
+
+    "launcher": {
+        "maxResults": 15,
+        "fuzzy": true
     },
 
     "appearance": {

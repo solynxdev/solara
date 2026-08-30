@@ -19,8 +19,8 @@ Item {
         const appId = root.appId.toLowerCase();
 
         return DesktopEntries.applications.values.find(entry => {
-            const id = entry.id.toLowerCase();
-            const startupClass = entry.startupClass.toLowerCase();
+            const id = (entry.id ?? "").toLowerCase();
+            const startupClass = (entry.startupClass ?? "").toLowerCase();
 
             return id === appId ||
                     startupClass === appId;
