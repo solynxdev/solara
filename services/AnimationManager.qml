@@ -37,6 +37,27 @@ Item {
         readonly property int easing: root.easing.standard
     }
 
+    // Morphing bar chips / shelf panels.
+    readonly property QtObject
+    panel: QtObject {
+        readonly property int duration: root.reducedMotion ? root.timings.instant : 200
+        readonly property int easing: root.easing.standard
+    }
+
+    // Small moving indicators (active workspace pill, toggle highlights).
+    readonly property QtObject
+    indicator: QtObject {
+        readonly property int duration: root.reducedMotion ? root.timings.instant : 140
+        readonly property int easing: root.easing.standard
+    }
+
+    // Item entrances/exits.
+    readonly property QtObject
+    entrance: QtObject {
+        readonly property int duration: root.reducedMotion ? root.timings.instant : 180
+        readonly property int easing: root.easing.emphasized
+    }
+
     function sync() {
         root.enabled = ConfigManager.get("animations.enabled", true);
         root.reducedMotion = !root.enabled;

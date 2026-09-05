@@ -7,13 +7,61 @@ import Quickshell.Services.SystemTray
 
 import "../theme"
 
+// Right-side clause of the bar: status chips (wifi, bluetooth) plus a
+// container that always shows every daemonized SystemTray app (no hidden
+// overflow). Chips carry caelestia-style state: the wifi glyph reflects
+// signal strength, bluetooth dims when powered off.
 Item {
     id: root
 
-    property bool trayExpanded: false
-
     readonly property var bluetoothAdapter:
         Bluetooth.defaultAdapter
+
+    readonly property var wifiDevice: {
+        const devices = Networking.devices;
+        for (let i = 0; i < devices.count; ++i) {
+            const d = devices.get(i);
+            if (d instanceof WifiDevice)
+                return d;
+        }
+
+        return null;
+    }
+
+    readonly property var activeWifi: {
+        if (!root.wifiDevice)
+            return null;
+
+        const networks = root.wifiDevice.networks;
+        for (let i = 0; i < networks.count; ++i) {
+            const n = networks.get(i);
+            if (n.connected)
+                return n;
+        }
+
+        return null;
+    }
+
+    readonly property real wifiStrength:
+        root.activeWifi ? root.activeWifi.signalStrength : -1
+
+    readonly property bool wifiOn:
+        Networking.wifiEnabled && Networking.wifiHardwareEnabled
+
+    readonly property string wifiIcon: {
+        if (!Networking.wifiHardwareEnabled || !Networking.wifiEnabled)
+            return "network-wireless-off";
+
+        if (root.wifiStrength >= 75)
+            return "network-wireless-signal-good";
+        if (root.wifiStrength >= 50)
+            return "network-wireless-signal-ok";
+        if (root.wifiStrength >= 25)
+            return "network-wireless-signal-weak";
+        return "network-wireless-signal-none";
+    }
+
+    readonly property bool trayHasItems: SystemTray.items.count > 0
 
     implicitWidth: content.implicitWidth
     implicitHeight: content.implicitHeight
@@ -31,22 +79,32 @@ Item {
 
             Image {
                 anchors.fill: parent
-
-                source: Quickshell.iconPath(
-                    "network-wireless"
-                )
-
+                source: Quickshell.iconPath(root.wifiIcon)
                 fillMode: Image.PreserveAspectFit
+                smooth: true
+                opacity: root.wifiOn ? 1 : 0.4
             }
 
             MouseArea {
                 anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
 
                 onClicked: {
                     if (Networking.wifiHardwareEnabled)
-                        Networking.wifiEnabled =
-                            !Networking.wifiEnabled
+                        Networking.wifiEnabled = !Networking.wifiEnabled
                 }
+            }
+
+            HoverHandler {
+                id: wifiHover
+            }
+
+            ToolTip {
+                visible: wifiHover.hovered
+                text: root.wifiOn
+                    ? "Wi-Fi on" + (root.activeWifi ? " · " + root.activeWifi.name : "")
+                    : "Wi-Fi off"
+                delay: 500
             }
         }
 
@@ -55,18 +113,25 @@ Item {
             width: 22
             height: 22
 
+            readonly property bool powered:
+                root.bluetoothAdapter && root.bluetoothAdapter.enabled
+
             Image {
                 anchors.fill: parent
-
                 source: Quickshell.iconPath(
-                    "bluetooth"
+                    root.bluetoothAdapter && root.bluetoothAdapter.enabled
+                        ? "bluetooth"
+                        : "bluetooth-disabled"
                 )
 
                 fillMode: Image.PreserveAspectFit
+                smooth: true
+                opacity: parent.powered ? 1 : 0.4
             }
 
             MouseArea {
                 anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
 
                 onClicked: {
                     if (root.bluetoothAdapter)
@@ -74,78 +139,84 @@ Item {
                             !root.bluetoothAdapter.enabled
                 }
             }
+
+            HoverHandler {
+                id: bluetoothHover
+            }
+
+            ToolTip {
+                visible: bluetoothHover.hovered
+                text: parent.powered ? "Bluetooth on" : "Bluetooth off"
+                delay: 500
+            }
         }
 
-        // System tray toggle
+        // System tray → a container that always shows all daemonized apps.
         Item {
-            width: 22
-            height: 22
+            id: trayContainer
 
-            Text {
-                anchors.centerIn: parent
+            visible: root.trayHasItems
+            implicitWidth: visible ? trayPill.width : 0
+            implicitHeight: 24
 
-                text: root.trayExpanded ? "‹" : "⋯"
+            Rectangle {
+                id: trayPill
 
-                color: Theme.text
-                font.pixelSize: 18
-                font.weight: Font.Bold
+                width: trayRow.implicitWidth + 8
+                height: 24
+                radius: height / 2
+                color: Theme.surfaceContainer
             }
 
-            MouseArea {
-                anchors.fill: parent
+            Row {
+                id: trayRow
 
-                onClicked: {
-                    root.trayExpanded = !root.trayExpanded
-                }
-            }
-        }
+                anchors.centerIn: trayPill
+                spacing: 2
 
-        // Expanded system tray
-        Row {
-            id: tray
+                Repeater {
+                    model: SystemTray.items
 
-            spacing: 4
-            visible: root.trayExpanded
+                    delegate: Item {
+                        required property var modelData
 
-            Repeater {
-                model: SystemTray.items
+                        width: 20
+                        height: 20
 
-                delegate: Item {
-                    required property var modelData
+                        Image {
+                            anchors.fill: parent
+                            source: modelData.icon
+                            fillMode: Image.PreserveAspectFit
+                            smooth: true
+                            visible: modelData.icon !== ""
+                        }
 
-                    width: 24
-                    height: 24
+                        MouseArea {
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+                            acceptedButtons: Qt.LeftButton | Qt.RightButton
 
-                    Image {
-                        anchors.fill: parent
+                            onClicked: {
+                                if (mouse.button === Qt.RightButton)
+                                    modelData.secondaryActivate()
+                                else
+                                    modelData.activate()
+                            }
+                        }
 
-                        source: modelData.icon
+                        HoverHandler {
+                            id: trayHover
+                        }
 
-                        fillMode: Image.PreserveAspectFit
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-
-                        onClicked: {
-                            modelData.activate()
+                        ToolTip {
+                            visible: trayHover.hovered
+                            text: modelData.tooltipTitle
+                                || modelData.title
+                            delay: 500
                         }
                     }
-
-                    ToolTip {
-                        visible: containsMouse
-                        text: modelData.tooltipTitle
-                            || modelData.title
-                    }
                 }
             }
-        }
-    }
-
-    Behavior on implicitWidth {
-        NumberAnimation {
-            duration: 180
-            easing.type: Easing.OutCubic
         }
     }
 }

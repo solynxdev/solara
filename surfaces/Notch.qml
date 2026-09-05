@@ -184,6 +184,9 @@ PanelWindow {
             opacity: root.displayedMode === "expanded" ? 1 : 0
             scale: root.displayedMode === "expanded" ? 1 : 0.96
             enabled: root.displayedMode === "expanded"
+            onRequestMode: (mode) => {
+                root.mode = mode
+            }
 
             Behavior on opacity {
                 NumberAnimation {

@@ -58,7 +58,7 @@ Item {
 
         anchors.centerIn: parent
 
-        spacing: 4
+        spacing: 6
 
         Repeater {
             model: root.visibleWorkspaces
