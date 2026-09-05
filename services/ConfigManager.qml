@@ -14,7 +14,7 @@ Item {
         Quickshell.env("HOME")
         + "/.config/solara/config/default-config.json"
 
-    property var data: ({})
+    property var store: ({})
     property var defaults: ({})
 
     property bool loaded: false
@@ -83,22 +83,22 @@ Item {
 
         onExited: (exitCode, exitStatus) => {
             if (exitCode !== 0) {
-                root.data = {}
+                root.store = {}
             } else {
                 const text = configOutput.text.trim()
 
                 if (!text) {
-                    root.data = {}
+                    root.store = {}
                 } else {
                     try {
-                        root.data = JSON.parse(text)
+                        root.store = JSON.parse(text)
                     } catch (error) {
                         console.warn(
                             "Solara: failed to parse config.json:",
                             error
                         )
 
-                        root.data = {}
+                        root.store = {}
                     }
                 }
             }
@@ -159,6 +159,9 @@ Item {
     }
 
     function clone(object) {
+        if (!object || typeof object !== "object")
+            return object
+
         return JSON.parse(JSON.stringify(object))
     }
 
@@ -198,10 +201,10 @@ Item {
         // ConfigManager.get() are invalidated after a change.
         const currentRevision = root.revision
 
-        if (root.data.useDefaultConfig)
-            return merge(root.defaults, root.data)
+        if (root.store.useDefaultConfig)
+            return merge(root.defaults, root.store)
 
-        return clone(root.data)
+        return clone(root.store)
     }
 
     function get(path, fallback = null) {
@@ -219,11 +222,11 @@ Item {
         if (!path)
             return
 
-        const updated = clone(root.data)
+        const updated = clone(root.store)
 
         setPath(updated, path, value)
 
-        root.data = updated
+        root.store = updated
 
         root.revision++
 
@@ -237,11 +240,11 @@ Item {
         if (!path)
             return
 
-        const updated = clone(root.data)
+        const updated = clone(root.store)
 
         removePath(updated, path)
 
-        root.data = updated
+        root.store = updated
 
         root.revision++
 
@@ -337,7 +340,7 @@ Item {
         root.writing = true
 
         writer.content = JSON.stringify(
-            root.data,
+            root.store,
             null,
             4
         )
@@ -347,7 +350,7 @@ Item {
     }
 
     function reset() {
-        root.data = {}
+        root.store = {}
 
         root.revision++
 

@@ -11,14 +11,18 @@ Item {
 
     width: parent ? parent.width : 320
     height: 46
-    onControlChanged: {
-        if (!root.control)
-            return ;
 
-        root.control.anchors.right = rowBackground.right;
-        root.control.anchors.rightMargin = 12;
-        root.control.anchors.verticalCenter = rowBackground.verticalCenter;
+    function attachControl() {
+        if (!root.control || !controlSlot)
+            return
+
+        root.control.parent = controlSlot
+        root.control.anchors.right = controlSlot.right
+        root.control.anchors.verticalCenter = controlSlot.verticalCenter
     }
+
+    onControlChanged: root.attachControl()
+    Component.onCompleted: root.attachControl()
 
     Rectangle {
         id: rowBackground
@@ -28,6 +32,20 @@ Item {
         color: "transparent"
         border.width: 0
         border.color: "transparent"
+    }
+
+    Item {
+        id: controlSlot
+
+        width: root.control ? root.control.width : 0
+        height: parent.height
+        visible: root.control !== null
+
+        anchors {
+            right: parent.right
+            rightMargin: 12
+            verticalCenter: parent.verticalCenter
+        }
     }
 
     Column {

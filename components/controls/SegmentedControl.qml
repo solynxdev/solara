@@ -51,9 +51,9 @@ Item {
 
         delegate: Item {
             x: model.index * root.segmentWidth
+            y: 0
             width: root.segmentWidth
             height: root.height
-            anchors.verticalCenter: root.verticalCenter
 
             Rectangle {
                 anchors.fill: parent

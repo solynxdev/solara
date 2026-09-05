@@ -134,14 +134,14 @@ Item {
                     Rectangle {
                         anchors.fill: parent
                         radius: 10
-                        color: root.section === model.index ? Qt.rgba(Theme.accent.r, Theme.accent.g, Theme.accent.b, 0.16) : "transparent"
-                        border.width: root.section === model.index ? 1 : 0
+                        color: root.section === index ? Qt.rgba(Theme.accent.r, Theme.accent.g, Theme.accent.b, 0.16) : "transparent"
+                        border.width: root.section === index ? 1 : 0
                         border.color: Qt.rgba(Theme.accent.r, Theme.accent.g, Theme.accent.b, 0.5)
                     }
 
                     Text {
                         text: modelData.title
-                        color: root.section === model.index ? Theme.accent : Theme.textSecondary
+                        color: root.section === index ? Theme.accent : Theme.textSecondary
 
                         anchors {
                             left: parent.left
@@ -158,7 +158,7 @@ Item {
 
                     TapHandler {
                         onTapped: {
-                            root.section = model.index;
+                            root.section = index;
                         }
                     }
 
