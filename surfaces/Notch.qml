@@ -46,11 +46,56 @@ PanelWindow {
     property real targetWidth: 0
     property real targetHeight: 0
 
+    // Caelestia-style interaction masking: the window is a full-width top
+    // strip, but input is limited to a centred pad so the island can be
+    // summoned by hovering its (future) footprint while the bars behind stay
+    // clickable. Launcher/settings surfaces get a larger mask to match their
+    // size; hovering is only used to drive collapsed <-> expanded.
+    readonly property bool bigMode:
+        root.mode === "launcher"
+        || root.mode === "wallpaper"
+        || root.mode === "scheme"
+        || root.mode === "settings"
+
+    readonly property real padMarginX: 60
+    readonly property real padMarginY: 40
+
+    readonly property real bigWidth: Math.max(
+        launcherContent.implicitWidth,
+        wallpaperContent.implicitWidth,
+        schemeContent.implicitWidth,
+        settingsContent.implicitWidth) + root.cornerSize * 2
+
+    readonly property real bigHeight: Math.max(
+        launcherContent.implicitHeight,
+        wallpaperContent.implicitHeight,
+        schemeContent.implicitHeight,
+        settingsContent.implicitHeight) + root.cornerSize
+
+    readonly property real hoverPadWidth:
+        expandedContent.implicitWidth + root.cornerSize * 2 + root.padMarginX
+
+    readonly property real hoverPadHeight:
+        expandedContent.implicitHeight + root.cornerSize + root.padMarginY
+
+    readonly property bool hovered: padProbe.containsMouse
+
+    onHoveredChanged: {
+        if (root.mode !== "collapsed" && root.mode !== "expanded")
+            return;
+
+        root.mode = root.hovered ? "expanded" : "collapsed";
+    }
+
     screen: root.screen
     focusable: root.mode === "launcher" || root.mode === "settings"
     exclusionMode: ExclusionMode.Ignore
     color: "transparent"
-    implicitHeight: root.animatedHeight
+    implicitHeight: Math.max(root.animatedHeight, root.bigHeight)
+
+    mask: Region {
+        item: root.bigMode ? bigArea : hoverPad
+    }
     onModeChanged: {
         if (root.mode === root.displayedMode)
             return ;
@@ -118,30 +163,32 @@ PanelWindow {
 
     }
 
+    // Proximity pad: the zone that summons the island when hovered (and keeps
+    // it expanded while the pointer is near). Mirrors caelestia's approach of
+    // deciding bar visibility from pointer position rather than window size.
     Item {
-        id: hoverRegion
+        id: hoverPad
 
-        width: Math.max(collapsedContent.implicitWidth, expandedContent.implicitWidth) + root.cornerSize * 2
-        height: Math.max(collapsedContent.implicitHeight, expandedContent.implicitHeight) + root.cornerSize
+        width: root.hoverPadWidth
+        height: root.hoverPadHeight
 
         anchors {
             top: parent.top
             horizontalCenter: parent.horizontalCenter
         }
+    }
 
-        HoverHandler {
-            enabled: root.mode === "collapsed" || root.mode === "expanded"
-            onHoveredChanged: {
-                if (root.mode !== "collapsed" && root.mode !== "expanded")
-                    return ;
+    // Covers launcher/settings-scale surfaces so their controls receive input.
+    Item {
+        id: bigArea
 
-                if (hovered)
-                    root.mode = "expanded";
-                else
-                    root.mode = "collapsed";
-            }
+        width: root.bigWidth
+        height: root.bigHeight
+
+        anchors {
+            top: parent.top
+            horizontalCenter: parent.horizontalCenter
         }
-
     }
 
     Item {
@@ -326,6 +373,21 @@ PanelWindow {
 
         }
 
+    }
+
+    // Topmost, click-through hover probe. A HoverHandler on the pad loses the
+    // single hover grab to the quick-settings' own ToolTip handlers, collapsing
+    // the island under the cursor; a NoButton MouseArea always wins the pad and
+    // lets taps pass through to the toggles.
+    MouseArea {
+        id: padProbe
+
+        width: root.hoverPadWidth
+        height: root.hoverPadHeight
+        anchors.centerIn: parent
+        hoverEnabled: true
+        acceptedButtons: Qt.NoButton
+        enabled: root.mode === "collapsed" || root.mode === "expanded"
     }
 
     SequentialAnimation {

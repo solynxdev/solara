@@ -33,7 +33,8 @@
         "cornerSize": 24,
         "contentPaddingX": 20,
         "contentPaddingY": 5,
-        "style": "chrome"
+        "style": "chrome",
+        "color": "#000000"
     },
 
     "bar": {

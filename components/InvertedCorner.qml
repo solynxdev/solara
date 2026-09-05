@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Shapes
 
+import "../services"
 import "../theme"
 
 Item {
@@ -8,7 +9,7 @@ Item {
 
     property real size: 12
 
-    property color color: Theme.chrome
+    property color color: ConfigManager.get("notch.color", "#000000")
 
     width: size
     height: size
