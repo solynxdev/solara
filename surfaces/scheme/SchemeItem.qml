@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
-
 import "../../theme"
+import "../../components"
 
 Item {
     id: root
@@ -24,9 +24,7 @@ Item {
             : Qt.rgba(Theme.text.r, Theme.text.g, Theme.text.b, 0.05)
 
         Behavior on color {
-            ColorAnimation {
-                duration: 100
-            }
+            CAnim {}
         }
     }
 

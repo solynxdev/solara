@@ -158,10 +158,7 @@ Item {
                 : (hover.hovered ? Theme.chipHover : Theme.surfaceVariant)
 
             Behavior on color {
-                ColorAnimation {
-                    duration: AnimationManager.indicator.duration
-                    easing.type: AnimationManager.indicator.easing
-                }
+                CAnim {}
             }
         }
 
@@ -173,10 +170,7 @@ Item {
             font.pixelSize: 20
 
             Behavior on color {
-                ColorAnimation {
-                    duration: AnimationManager.indicator.duration
-                    easing.type: AnimationManager.indicator.easing
-                }
+                CAnim {}
             }
         }
 
@@ -212,10 +206,7 @@ Item {
             color: hover.hovered ? Theme.chipHover : Theme.surfaceVariant
 
             Behavior on color {
-                ColorAnimation {
-                    duration: AnimationManager.indicator.duration
-                    easing.type: AnimationManager.indicator.easing
-                }
+                CAnim {}
             }
         }
 

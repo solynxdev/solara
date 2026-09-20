@@ -59,10 +59,7 @@ Item {
         }
 
         Behavior on color {
-            ColorAnimation {
-                duration: 150
-                easing.type: Easing.OutCubic
-            }
+            CAnim {}
         }
     }
 

@@ -1,4 +1,5 @@
 import "../../theme"
+import ".."
 import QtQuick
 
 Item {
@@ -20,10 +21,7 @@ Item {
         color: root.checked ? Theme.accent : Theme.surfaceVariant
 
         Behavior on color {
-            ColorAnimation {
-                duration: 150
-            }
-
+            CAnim {}
         }
 
     }

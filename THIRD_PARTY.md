@@ -38,7 +38,7 @@ as authoritative.
 | P1 | `theme/Theme.qml` (role rewrite) | Solara original | authored, GPL-3.0 | no external attribution |
 | P1 | `theme/ThemeManager.qml` (static M3 scheme loading) | `ii/services/MaterialThemeLoader.qml` (FileView pattern) | `DERIVED` GPL-3.0 | derived-from comment |
 | P1 | `services/ColorManager.qml` | `ii/services/MaterialThemeLoader.qml` | `DERIVED` GPL-3.0 | header + derived-from comment |
-| P2 | `theme/Tokens.qml` | Caelestia tokens semantics; Solara design | `DERIVED` GPL-3.0 | derived-from comment |
+| P2 | tokens (no new file) | Caelestia token semantics folded into existing `services/AnimationManager.qml` (Solara-original) | `PATTERN` GPL-3.0 | attribution comment |
 | P2 | `components/{Anim,CAnim,AnimLoader,StyledRect}.qml` | Caelestia `components/*.qml` | `DERIVED` GPL-3.0 | header |
 | P2 | `components/StateLayer.qml` | Caelestia `components/StateLayer.qml` | `DERIVED` GPL-3.0 | header |
 | P2 | `components/controls/ButtonBase.qml` | Caelestia `components/controls/ButtonBase.qml` | `DERIVED` GPL-3.0 | header |
@@ -87,6 +87,14 @@ with `P0 date` set to `2026-09-20`:
 Vendored Apache-2.0 material-shapes files instead keep their original
 Apache-2.0 header plus an `SPDX-License-Identifier: Apache-2.0` tag; the
 upstream LICENSE text is preserved alongside.
+
+## Implementation log
+
+| Date      | Commit | Phase | Summary |
+| --------- | ------ | ----- | ------- |
+| 2026-09-20 | `d0646ef` | P0 | Canonical GPL-3.0 `LICENSE` + this attribution document added. |
+| 2026-09-20 | `71d324f` | P1 | M3 roles pipeline: scheme JSON role sets (light/dark), FileView-based ThemeManager + ColorManager, Theme role surface, `theme.mode` config + Settings control. |
+| 2026-09-20 | (P2) | P2 | `components/{Anim,CAnim,AnimLoader,StyledRect,StateLayer}.qml` + `components/controls/ButtonBase.qml` adapted (GPL-3.0); color morphs across surfaces/controls switched to `CAnim` (reduced-motion aware). |
 
 ## Preexisting status note
 

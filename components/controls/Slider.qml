@@ -1,4 +1,5 @@
 import "../../theme"
+import ".."
 import QtQuick
 
 Item {
@@ -71,10 +72,7 @@ Item {
         }
 
         Behavior on color {
-            ColorAnimation {
-                duration: 120
-            }
-
+            CAnim {}
         }
 
     }
