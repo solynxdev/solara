@@ -31,7 +31,6 @@ Item {
     property bool loaded: false
     property int revision: 0
 
-    signal rolesChanged()
     signal loadFailed()
 
     FileView {

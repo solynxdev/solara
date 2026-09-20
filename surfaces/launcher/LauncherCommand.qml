@@ -46,7 +46,7 @@ Item {
         }
 
         Text {
-            text: root.command.description
+            text: root.command.description || ""
 
             width: parent.width
 

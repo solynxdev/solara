@@ -37,7 +37,7 @@ Item {
     FileView {
         id: schemeView
 
-        property string fileName: ""
+        property string fileName: "catppuccin/mocha"
 
         path: Quickshell.env("HOME")
             + "/.config/solara/schemes/"

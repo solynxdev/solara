@@ -6,6 +6,7 @@ import Quickshell.Networking
 
 import "../../services"
 import "../../theme"
+import "../../components"
 
 // Caelestia-style "expanded" state of the dynamic island: a quick-settings
 // panel. Clock/date header, a pill of icon toggles (wifi, bluetooth, settings,
