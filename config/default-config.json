@@ -1,6 +1,10 @@
 {
     "scheme": "catppuccin/mocha",
 
+    "theme": {
+        "mode": "auto"
+    },
+
     "wallpaper": "",
 
     "animations": {

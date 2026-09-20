@@ -306,6 +306,33 @@ Item {
                             }
 
                             SettingRow {
+                                label: "Theme mode"
+                                hint: "Auto follows the active scheme, Light/Dark override it"
+
+                                control: SegmentedControl {
+                                    id: themeModeControl
+
+                                    width: 190
+                                    options: ["Auto", "Light", "Dark"]
+                                    index: {
+                                        const mode = ConfigManager.get("theme.mode", "auto");
+
+                                        if (mode === "light")
+                                            return 1;
+
+                                        if (mode === "dark")
+                                            return 2;
+
+                                        return 0;
+                                    }
+                                    onChanged: {
+                                        ConfigManager.set("theme.mode", ["auto", "light", "dark"][index]);
+                                    }
+                                }
+
+                            }
+
+                            SettingRow {
                                 label: "Animations"
                                 hint: "Morph transitions across the shell"
 

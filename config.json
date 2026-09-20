@@ -1,6 +1,9 @@
 {
     "useDefaultConfig": true,
     "scheme": "dynamic",
+    "theme": {
+        "mode": "auto"
+    },
     "wallpaper": "/home/solynx/Pictures/Wallpapers/flower-field-2.png",
     "notch": {
         "contentPaddingY": 5,
