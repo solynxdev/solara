@@ -20,8 +20,8 @@ Item {
         radius: 14
 
         color: mouse.containsMouse
-            ? Qt.rgba(Theme.text.r, Theme.text.g, Theme.text.b, 0.10)
-            : Qt.rgba(Theme.text.r, Theme.text.g, Theme.text.b, 0.05)
+            ? Theme.surfaceContainerHigh
+            : "transparent"
 
         Behavior on color {
             CAnim {}

@@ -94,7 +94,9 @@ upstream LICENSE text is preserved alongside.
 | --------- | ------ | ----- | ------- |
 | 2026-09-20 | `d0646ef` | P0 | Canonical GPL-3.0 `LICENSE` + this attribution document added. |
 | 2026-09-20 | `71d324f` | P1 | M3 roles pipeline: scheme JSON role sets (light/dark), FileView-based ThemeManager + ColorManager, Theme role surface, `theme.mode` config + Settings control. |
-| 2026-09-20 | (P2) | P2 | `components/{Anim,CAnim,AnimLoader,StyledRect,StateLayer}.qml` + `components/controls/ButtonBase.qml` adapted (GPL-3.0); color morphs across surfaces/controls switched to `CAnim` (reduced-motion aware). |
+| 2026-09-20 | `04f0b42` | P2 | `components/{Anim,CAnim,AnimLoader,StyledRect,StateLayer}.qml` + `components/controls/ButtonBase.qml` adapted (GPL-3.0); color morphs across surfaces/controls switched to `CAnim` (reduced-motion aware). |
+| 2026-09-20 | `e261071` | P2 | Runtime smoke-test fixes: `ColorManager` qmldir registration + duplicate `rolesChanged` removal, FileView default path, missing `components` import, Anim/CAnim literal-type scope (id: root). |
+| 2026-09-20 | `(P3)` | P3 | Controls adopt `ButtonBase`: SegmentedControl text segments, notch ToggleButton/ActionChip (tonal), workspace `StateLayer` pills; ad-hoc literals retargeted to M3 roles (hover rows, toggle/slider tracks, workspace dots). |
 
 ## Preexisting status note
 

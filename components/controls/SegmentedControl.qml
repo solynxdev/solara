@@ -20,7 +20,7 @@ Item {
 
         anchors.fill: parent
         radius: height / 2
-        color: Theme.surfaceVariant
+        color: Theme.surfaceContainerHighest
     }
 
     Rectangle {
@@ -28,6 +28,7 @@ Item {
 
         width: root.segmentWidth
         height: root.height - 4
+
         x: root.knobX + 2
         radius: height / 2
         color: Theme.accent
@@ -49,37 +50,37 @@ Item {
     Repeater {
         model: root.options
 
-        delegate: Item {
-            x: model.index * root.segmentWidth
+        delegate: ButtonBase {
+            required property int index
+            required property var modelData
+
+            x: index * root.segmentWidth
             y: 0
-            width: root.segmentWidth
-            height: root.height
 
-            Rectangle {
-                anchors.fill: parent
-                radius: height / 2
-                color: "transparent"
+            implicitWidth: root.segmentWidth
+            implicitHeight: root.height
 
-                Text {
-                    anchors.centerIn: parent
-                    text: modelData
-                    color: model.index === root.index ? Theme.accentText : Theme.textSecondary
+            type: ButtonBase.Text
+            radiusMorph: false
+            radius: height / 2
 
-                    font {
-                        family: Theme.fontFamily
-                        pointSize: 9
-                        bold: model.index === root.index
-                    }
-
-                }
-
+            onClicked: {
+                root.index = index
+                root.changed(index)
             }
 
-            TapHandler {
-                onTapped: {
-                    root.index = model.index;
-                    root.changed(model.index);
+            Text {
+                anchors.centerIn: parent
+                text: modelData
+
+                color: index === root.index ? Theme.accentText : Theme.onSurfaceVariant
+
+                font {
+                    family: Theme.fontFamily
+                    pointSize: 9
+                    bold: index === root.index
                 }
+
             }
 
         }

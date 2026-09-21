@@ -58,8 +58,12 @@ MouseArea {
         return Math.max(0, Math.min(r, width / 2, height / 2))
     }
 
-    function clampBetween(value, low, high) {
-        return Math.max(low, Math.min(high, value))
+function clampBetween(value, low, high) {
+        return Math.min(high, Math.max(low, value))
+    }
+
+    function gradRatio() {
+        return root.endRadius > 0 ? root.circleRadius / root.endRadius : 0
     }
 
     function press(x, y) {
@@ -156,13 +160,13 @@ MouseArea {
                 }
 
                 GradientStop {
-                    position: root.clampBetween(1 - 0.2 * root.endRadius / root.circleRadius, 0.01, 0.99)
+                    position: root.clampBetween(1 - 0.2 * (root.circleRadius > 0 ? root.endRadius / root.circleRadius : 1), 0.01, 0.99)
                     color: Qt.alpha(base.color, 1)
                 }
 
                 GradientStop {
                     position: 1
-                    color: Qt.alpha(base.color, root.clampBetween((root.circleRadius / root.endRadius - 0.9) / 0.1, 0, 1))
+                    color: Qt.alpha(base.color, root.clampBetween((root.gradRatio() - 0.9) / 0.1, 0, 1))
                 }
             }
 

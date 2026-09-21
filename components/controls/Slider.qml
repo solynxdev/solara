@@ -31,7 +31,7 @@ Item {
 
         height: 6
         radius: height / 2
-        color: Theme.surfaceVariant
+        color: Theme.surfaceContainerHighest
 
         anchors {
             left: parent.left

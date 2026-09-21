@@ -18,7 +18,7 @@ Item {
 
         anchors.fill: parent
         radius: height / 2
-        color: root.checked ? Theme.accent : Theme.surfaceVariant
+        color: root.checked ? Theme.accent : Theme.surfaceContainerHighest
 
         Behavior on color {
             CAnim {}

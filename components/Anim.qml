@@ -12,6 +12,8 @@ import QtQuick
 import "../services"
 
 NumberAnimation {
+    id: root
+
     enum Type {
         StandardSmall = 0,
         Standard,
@@ -31,8 +33,8 @@ NumberAnimation {
 
     property int type: Anim.DefaultSpatial
 
-    duration: Anim.durationOf(root.type)
-    easing.type: Anim.easingOf(root.type)
+    duration: root.durationOf(root.type)
+    easing.type: root.easingOf(root.type)
 
     function durationOf(type) {
         switch (type) {

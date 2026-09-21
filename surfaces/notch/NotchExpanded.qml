@@ -7,6 +7,7 @@ import Quickshell.Networking
 import "../../services"
 import "../../theme"
 import "../../components"
+import "../../components/controls"
 
 // Caelestia-style "expanded" state of the dynamic island: a quick-settings
 // panel. Clock/date header, a pill of icon toggles (wifi, bluetooth, settings,
@@ -141,32 +142,29 @@ Item {
         }
     }
 
-    component ToggleButton: Item {
+    component ToggleButton: ButtonBase {
         id: toggle
 
         property string glyph
         property bool on: false
-        signal clicked()
 
-        width: 44
-        height: 44
+        implicitWidth: 44
+        implicitHeight: 44
 
-        Rectangle {
-            anchors.fill: parent
-            radius: width / 2
-            color: toggle.on
-                ? Theme.primary
-                : (hover.hovered ? Theme.chipHover : Theme.surfaceVariant)
+        type: ButtonBase.Tonal
+        isRound: true
 
-            Behavior on color {
-                CAnim {}
-            }
-        }
+        checked: toggle.on
+        activeColour: Theme.primary
+        activeOnColour: Theme.onPrimary
+        inactiveColour: hovered ? Theme.chipHover : Theme.surfaceVariant
+        inactiveOnColour: Theme.text
 
         Text {
             anchors.centerIn: parent
             text: toggle.glyph
-            color: toggle.on ? Theme.onPrimary : Theme.text
+            color: toggle.onColour
+
             font.family: "Material Symbols Rounded"
             font.pixelSize: 20
 
@@ -175,40 +173,35 @@ Item {
             }
         }
 
-        HoverHandler {
-            id: hover
-        }
-
-        TapHandler {
-            onTapped: toggle.clicked()
-        }
-
         ToolTip {
-            visible: hover.hovered
+            visible: toggle.hovered
             text: toggle.glyph.replace("_", " ")
             delay: 500
         }
     }
 
-    component ActionChip: Item {
+    component ActionChip: ButtonBase {
         id: chip
 
         property string glyph
         property string label
         property bool interactive: true
-        signal clicked()
 
-        implicitWidth: row.implicitWidth + 18
+        implicitWidth: row.implicitWidth + 20
         implicitHeight: 26
 
-        Rectangle {
-            anchors.fill: parent
-            radius: height / 2
-            color: hover.hovered ? Theme.chipHover : Theme.surfaceVariant
+        type: ButtonBase.Tonal
+        isRound: true
+        radiusMorph: false
 
-            Behavior on color {
-                CAnim {}
-            }
+        inactiveColour: hovered ? Theme.chipHover : Theme.surfaceVariant
+        activeColour: Theme.chipHover
+        activeOnColour: Theme.textSecondary
+        inactiveOnColour: Theme.textSecondary
+
+        onClicked: {
+            if (chip.interactive)
+                chip.clicked()
         }
 
         Row {
@@ -219,7 +212,8 @@ Item {
 
             Text {
                 text: chip.glyph
-                color: Theme.text
+                color: chip.onColour
+
                 font.family: "Material Symbols Rounded"
                 font.pixelSize: 13
                 visible: chip.glyph !== ""
@@ -228,21 +222,11 @@ Item {
             Text {
                 text: chip.label
                 color: Theme.textSecondary
+
                 font.family: Theme.fontFamily
                 font.pixelSize: 10
                 font.weight: Font.Medium
             }
-        }
-
-        HoverHandler {
-            id: hover
-
-            enabled: chip.interactive
-        }
-
-        TapHandler {
-            enabled: chip.interactive
-            onTapped: chip.clicked()
         }
     }
 }

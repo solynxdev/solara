@@ -35,7 +35,7 @@ Item {
 
         color: root.active
             ? Theme.accent
-            : Qt.rgba(Theme.text.r, Theme.text.g, Theme.text.b, root.occupied ? 0.55 : 0.22)
+            : Qt.alpha(Theme.onSurfaceVariant, root.occupied ? 1 : 0.45)
 
         Behavior on width {
             NumberAnimation {
@@ -63,12 +63,20 @@ Item {
         }
     }
 
-    HoverHandler {
-        id: hover
+    StateLayer {
+        id: overlay
+
+        anchors.centerIn: parent
+        width: Math.max(root.size + 12, 18)
+        height: Math.max(root.size + 12, 18)
+        radius: width / 2
+        cursorShape: Qt.PointingHandCursor
+
+        onClicked: Hyprland.dispatch("workspace " + root.workspace.id)
     }
 
-    TapHandler {
-        onTapped: Hyprland.dispatch("workspace " + root.workspace.id)
+    HoverHandler {
+        id: hover
     }
 
     ToolTip {
