@@ -98,7 +98,7 @@ upstream LICENSE text is preserved alongside.
 | 2026-09-20 | `e261071` | P2 | Runtime smoke-test fixes: `ColorManager` qmldir registration + duplicate `rolesChanged` removal, FileView default path, missing `components` import, Anim/CAnim literal-type scope (id: root). |
 | 2026-09-20 | `aa21dd8` | P3 | Controls adopt `ButtonBase`: SegmentedControl text segments, notch ToggleButton/ActionChip (tonal), workspace `StateLayer` pills; ad-hoc literals retargeted to M3 roles (hover rows, toggle/slider tracks, workspace dots). |
 | 2026-09-20 | `ba7c498` | P3 | THIRD_PARTY implementation-log housekeeping (real SHAs). |
-| 2026-09-20 | `(P4)` | P4 | Dynamic colors: matugen installed; repo-contained `matugen/{config.toml,templates/colors.json}` renders the 51 M3 roles; ColorManager spawns matugen (Process via `running`), attaches its FileView only once the generated file exists, regenerates on wallpaper/scheme change; verified end-to-end with a clean log. |
+| 2026-09-20 | `96d2a58` | P4 | Dynamic colors: matugen installed; repo-contained `matugen/{config.toml,templates/colors.json}` renders the 51 M3 roles; ColorManager spawns matugen (Process via `running`), attaches its FileView only once the generated file exists, regenerates on wallpaper/scheme change; verified end-to-end with a clean log. |
 
 ## Preexisting status note
 
