@@ -58,7 +58,7 @@ as authoritative.
 3. **`ii/modules/waffle/actionCenter/MediaPaneContent.qml`** — RESOLVED. No header; ii GPL-3.0; imports are looks/services/common only. Derivations OK; read in full at P7 before adapting.
 4. **`ii/scripts/colors/*.py`** — RESOLVED. No headers; ii GPL-3.0. Not needed for P0–P6. The dynamic path is covered by matugen + the `colors.json` template; revisit at P4 only if the optional auto-luminance path is adopted. Otherwise REFERENCE-ONLY.
 5. **`BarPopup.qml` / `WBarAttachedPanelContent.qml` / `TrayOverflowMenu.qml` / `WaffleNotificationPopup.qml`** — RESOLVED. No headers; ii GPL-3.0. Imports confirmed to be looks/services/common (+ `Qt5Compat.GraphicalEffects` on two); no foreign-tree dependency (no walnut/quilt/smesh/etc.). Derivations OK with GPL-3.0 header.
-6. **matugen LICENSE** — RESOLVED. Full GPL-2.0 text verified at the matugen repository. matugen is an external CLI tool (invoked from ColorManager in dynamic mode), not vendored or linked, so Solara's GPL-3.0 is unaffected. Note: matugen is **not currently installed**; dynamic mode must fall back gracefully to the last valid static scheme until it is installed.
+6. **matugen LICENSE** — RESOLVED. Full GPL-2.0 text verified at the matugen repository. matugen is an external CLI tool (invoked from ColorManager in dynamic mode), not vendored or linked, so Solara's GPL-3.0 is unaffected. RESOLVED-AT-P4: matugen 4.2.0 is now installed; dynamic mode runs `matugen -c solara/matugen/config.toml image --source-color-index 0 <wallpaper>`, rendering the repo-contained 51-role template into the watched colors file. If matugen is ever absent again, ColorManager keeps the last valid palette and warns once.
 7. **Caelestia `modules/bar/popouts/Wrapper.qml`** — RESOLVED (audit). Imports sidebar-specific modules (`qs.modules.nexus`, `qs.modules.windowinfo`, `QsWindow.window`). Marked REFERENCE-ONLY pattern; the body is not copied (staged P5 bar design keeps Solara's two existing bar windows).
 8. **Caelestia `Elevation`** — RESOLVED. No such component exists in Caelestia; the earlier plan reference is corrected. M3 elevation is expressed via tokens + surface colors + optional drop shadow (`Qt5Compat.GraphicalEffects.DropShadow` or Qt Quick Effects).
 
@@ -97,6 +97,8 @@ upstream LICENSE text is preserved alongside.
 | 2026-09-20 | `04f0b42` | P2 | `components/{Anim,CAnim,AnimLoader,StyledRect,StateLayer}.qml` + `components/controls/ButtonBase.qml` adapted (GPL-3.0); color morphs across surfaces/controls switched to `CAnim` (reduced-motion aware). |
 | 2026-09-20 | `e261071` | P2 | Runtime smoke-test fixes: `ColorManager` qmldir registration + duplicate `rolesChanged` removal, FileView default path, missing `components` import, Anim/CAnim literal-type scope (id: root). |
 | 2026-09-20 | `aa21dd8` | P3 | Controls adopt `ButtonBase`: SegmentedControl text segments, notch ToggleButton/ActionChip (tonal), workspace `StateLayer` pills; ad-hoc literals retargeted to M3 roles (hover rows, toggle/slider tracks, workspace dots). |
+| 2026-09-20 | `ba7c498` | P3 | THIRD_PARTY implementation-log housekeeping (real SHAs). |
+| 2026-09-20 | `(P4)` | P4 | Dynamic colors: matugen installed; repo-contained `matugen/{config.toml,templates/colors.json}` renders the 51 M3 roles; ColorManager spawns matugen (Process via `running`), attaches its FileView only once the generated file exists, regenerates on wallpaper/scheme change; verified end-to-end with a clean log. |
 
 ## Preexisting status note
 

@@ -36,7 +36,9 @@ Item {
     FileView {
         id: themeFileView
 
-        path: root.colorsPath
+        // Path is assigned only after the generated file is known to exist
+        // (attach()), so a cold start without colors.json does not warn.
+        path: ""
         watchChanges: true
 
         onFileChanged: {
@@ -59,6 +61,83 @@ Item {
         repeat: false
 
         onTriggered: root.parse()
+    }
+
+    property bool warnedGeneration: false
+
+    Timer {
+        id: generationTimer
+
+        interval: 250
+        repeat: false
+
+        onTriggered: root.generate()
+    }
+
+    Connections {
+        target: ConfigManager
+
+        function onConfigLoaded() {
+            root.generate()
+        }
+
+        function onValueChanged(path) {
+            if (path === "wallpaper") {
+                generationTimer.restart()
+            } else if (
+                path === "scheme"
+                && ConfigManager.get("scheme", "") === "dynamic"
+            ) {
+                generationTimer.restart()
+            }
+        }
+    }
+
+    Process {
+        id: matugenProcess
+
+        onExited: (exitCode, exitStatus) => {
+            matugenProcess.running = false
+
+            if (exitCode === 0) {
+                root.warnedGeneration = false
+                root.attach()
+            } else {
+                if (!root.warnedGeneration) {
+                    root.warnedGeneration = true
+                    console.warn(
+                        "Solara: matugen generation failed; keeping last valid palette"
+                    )
+                }
+            }
+        }
+    }
+
+    readonly property string matugenConfig:
+        Quickshell.env("HOME")
+        + "/.config/solara/matugen/config.toml"
+
+    function attach() {
+        themeFileView.path = root.colorsPath
+        themeFileView.reload()
+        parseTimer.restart()
+    }
+
+    function generate() {
+        if (ConfigManager.get("scheme", "") !== "dynamic")
+            return
+
+        const wallpaper = ConfigManager.get("wallpaper", "")
+
+        if (wallpaper.length === 0 || matugenProcess.running)
+            return
+
+        matugenProcess.command = [
+            "/usr/bin/matugen", "-c", root.matugenConfig,
+            "image", "--source-color-index", "0",
+            wallpaper,
+        ]
+        matugenProcess.running = true
     }
 
     function snakeToCamel(key) {
@@ -107,6 +186,6 @@ Item {
     }
 
     Component.onCompleted: {
-        themeFileView.reload()
+        root.generate()
     }
 }

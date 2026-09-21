@@ -1,0 +1,5 @@
+[config]
+
+[templates.solara]
+input_path = "./templates/colors.json"
+output_path = "/home/solynx/.local/state/quickshell/user/generated/colors.json"
