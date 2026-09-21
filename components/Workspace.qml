@@ -6,9 +6,10 @@ import Quickshell.Hyprland
 import "../services"
 import "../theme"
 
-// One workspace dot. Circles only: the active workspace is an accent-filled
-// circle that swells, occupied workspaces rest as mid-opacity circles and
-// empty ones as faint dots.
+// One workspace dot. Four states: the active workspace with windows is an
+// accent-filled circle that swells; the active-but-empty workspace keeps the
+// active size but falls back to the dimmed grey; occupied workspaces rest as
+// mid-opacity circles and empty ones as faint dots.
 Item {
     id: root
 
@@ -33,7 +34,7 @@ Item {
         height: root.size
         radius: root.size / 2
 
-        color: root.active
+        color: root.active && root.occupied
             ? Theme.accent
             : Qt.alpha(Theme.onSurfaceVariant, root.occupied ? 1 : 0.45)
 

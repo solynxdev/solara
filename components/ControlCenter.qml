@@ -1,9 +1,9 @@
 import QtQuick
-import QtQuick.Controls
 import Quickshell
 import Quickshell.Services.SystemTray
 
 import "../theme"
+import "tray"
 
 // Right-side clause of the bar: a pill container that always shows every
 // daemonized SystemTray app (no hidden overflow). Wi-Fi and Bluetooth
@@ -27,13 +27,13 @@ Item {
 
             visible: root.trayHasItems
             implicitWidth: visible ? trayPill.width : 0
-            implicitHeight: 24
+            implicitHeight: 30
 
             Rectangle {
                 id: trayPill
 
                 width: trayRow.implicitWidth + 8
-                height: 24
+                height: 30
                 radius: height / 2
                 color: Theme.surfaceContainer
             }
@@ -47,44 +47,7 @@ Item {
                 Repeater {
                     model: SystemTray.items
 
-                    delegate: Item {
-                        required property var modelData
-
-                        width: 20
-                        height: 20
-
-                        Image {
-                            anchors.fill: parent
-                            source: modelData.icon
-                            fillMode: Image.PreserveAspectFit
-                            smooth: true
-                            visible: modelData.icon !== ""
-                        }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            acceptedButtons: Qt.LeftButton | Qt.RightButton
-
-                            onClicked: {
-                                if (mouse.button === Qt.RightButton)
-                                    modelData.secondaryActivate()
-                                else
-                                    modelData.activate()
-                            }
-                        }
-
-                        HoverHandler {
-                            id: trayHover
-                        }
-
-                        ToolTip {
-                            visible: trayHover.hovered
-                            text: modelData.tooltipTitle
-                                || modelData.title
-                            delay: 500
-                        }
-                    }
+                    delegate: TrayItem {}
                 }
             }
         }

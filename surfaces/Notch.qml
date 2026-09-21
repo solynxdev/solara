@@ -60,6 +60,14 @@ PanelWindow {
     readonly property real padMarginX: 60
     readonly property real padMarginY: 40
 
+    // Screen-space slices of the flanking bar pills (left workspaces, right
+    // tray). The hover pad stretches past the island and would otherwise bury
+    // the pills under the notch surface, making their dots/apps unhoverable.
+    // Shell injects these; both sides re-derive from the same margins that
+    // place the pills, so the carve-out tracks the animated island size.
+    property rect leftBarRect: Qt.rect(0, 0, 0, 0)
+    property rect rightBarRect: Qt.rect(0, 0, 0, 0)
+
     readonly property real bigWidth: Math.max(
         launcherContent.implicitWidth,
         wallpaperContent.implicitWidth,
@@ -94,7 +102,27 @@ PanelWindow {
     implicitHeight: Math.max(root.animatedHeight, root.bigHeight)
 
     mask: Region {
-        item: root.bigMode ? bigArea : hoverPad
+        Region {
+            item: root.bigMode ? bigArea : hoverPad
+        }
+
+        // Keep the flanking pills interactive: carve their slices out of the
+        // input region so pointer events there reach the bar windows below.
+        Region {
+            intersection: Intersection.Subtract
+            x: root.leftBarRect.x
+            y: root.leftBarRect.y
+            width: root.leftBarRect.width
+            height: root.leftBarRect.height
+        }
+
+        Region {
+            intersection: Intersection.Subtract
+            x: root.rightBarRect.x
+            y: root.rightBarRect.y
+            width: root.rightBarRect.width
+            height: root.rightBarRect.height
+        }
     }
     onModeChanged: {
         if (root.mode === root.displayedMode)
@@ -375,16 +403,14 @@ PanelWindow {
 
     }
 
-    // Topmost, click-through hover probe. A HoverHandler on the pad loses the
-    // single hover grab to the quick-settings' own ToolTip handlers, collapsing
-    // the island under the cursor; a NoButton MouseArea always wins the pad and
+    // Topmost, click-through hover probe. Must occupy exactly the same
+    // footprint as the pad it masks, or the island collapses while the
+    // pointer still hovers it. A NoButton MouseArea always wins the pad and
     // lets taps pass through to the toggles.
     MouseArea {
         id: padProbe
 
-        width: root.hoverPadWidth
-        height: root.hoverPadHeight
-        anchors.centerIn: parent
+        anchors.fill: hoverPad
         hoverEnabled: true
         acceptedButtons: Qt.NoButton
         enabled: root.mode === "collapsed" || root.mode === "expanded"

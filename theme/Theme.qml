@@ -18,7 +18,7 @@ import "../services"
 QtObject {
     id: root
 
-    readonly property string fontFamily: "Sans"
+    readonly property string fontFamily: "Google Sans Flex"
 
     // ---- Legacy flat surface (stable for consumers) ----
     readonly property color background: root.color("background", "#1e1e2e")

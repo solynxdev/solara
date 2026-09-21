@@ -43,6 +43,8 @@ as authoritative.
 | P2 | `components/StateLayer.qml` | Caelestia `components/StateLayer.qml` | `DERIVED` GPL-3.0 | header |
 | P2 | `components/controls/ButtonBase.qml` | Caelestia `components/controls/ButtonBase.qml` | `DERIVED` GPL-3.0 | header |
 | P5 | `surfaces/bar/…` entries layer | Caelestia `modules/bar/Bar.qml` (pattern only — no sidebar transplant) | `PATTERN` GPL-3.0 | attribution comment |
+| P5 | `components/tray/TrayItem.qml` | Caelestia `modules/bar/components/TrayItem.qml` (click semantics) | `PATTERN` GPL-3.0 | attribution comment |
+| P5 | `components/tray/{TrayMenuPopup,MenuRow}.qml` | Caelestia `modules/bar/popouts/TrayMenu.qml` | `DERIVED` GPL-3.0 | header |
 | P6 | `services/ShellState.qml` | Caelestia `modules/bar/popouts/PopoutState.qml` + `ii/GlobalStates.qml` (idioms) | `PATTERN` GPL-3.0 | attribution comment |
 | P6 | `surfaces/popups/…` | `ii/modules/waffle/bar/BarPopup.qml`, `ii/modules/waffle/looks/WBarAttachedPanelContent.qml` | `PATTERN`/`DERIVED` GPL-3.0 | header |
 | P7 | `services/{Audio,Brightness,Notifications,Network,TrayService}.qml` | `ii/services/*.qml` | `DERIVED` GPL-3.0 | header (Brightness/Network already credit Caelestia GPL-3.0 upstream) |
@@ -99,6 +101,7 @@ upstream LICENSE text is preserved alongside.
 | 2026-09-20 | `aa21dd8` | P3 | Controls adopt `ButtonBase`: SegmentedControl text segments, notch ToggleButton/ActionChip (tonal), workspace `StateLayer` pills; ad-hoc literals retargeted to M3 roles (hover rows, toggle/slider tracks, workspace dots). |
 | 2026-09-20 | `ba7c498` | P3 | THIRD_PARTY implementation-log housekeeping (real SHAs). |
 | 2026-09-20 | `96d2a58` | P4 | Dynamic colors: matugen installed; repo-contained `matugen/{config.toml,templates/colors.json}` renders the 51 M3 roles; ColorManager spawns matugen (Process via `running`), attaches its FileView only once the generated file exists, regenerates on wallpaper/scheme change; verified end-to-end with a clean log. |
+| 2026-09-20 | `(P5a)` | P5 | Notch hover area fixed (pad probe footprint mirrors the pad; flanking bar pills carved out of the notch input mask so their dots/apps stay interactive); workspace dots distinguish all four activity/occupancy states; tray hover popout (`components/tray/{TrayItem,TrayMenuPopup,MenuRow}.qml`, GPL-3.0 DERIVED/PATTERN from Caelestia's `TrayMenu.qml`) in the right bar; main font switched to Google Sans Flex. |
 
 ## Preexisting status note
 

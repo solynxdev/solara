@@ -127,6 +127,12 @@ ShellRoot {
                     id: notch
 
                     screen: root.modelData
+
+                    // Same equations as the bars' margins above, resolved into
+                    // screen-space slices so the notch can carve the pills out
+                    // of its hover pad and stop swallowing their input.
+                    leftBarRect: Qt.rect((root.modelData.width - notch.contentWidth) / 2 - workspaceBar.width - 6, 4, workspaceBar.width, workspaceBar.height)
+                    rightBarRect: Qt.rect((root.modelData.width + notch.contentWidth) / 2 + 6, 4, controlBar.width, controlBar.height)
                 }
             }
 
